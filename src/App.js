@@ -8,10 +8,8 @@ const Counter = ({value, onInc, onDec, onUpdate}) => {
             <h1>{value}</h1>
             <button onClick={onInc}>+</button>
             <button onClick={onDec}>-</button>
-            <input ref={node => {
-                this.input = node;
-            }} />
-            <button onClick={onUpdate(this.input.value)}>update</button>
+            <input type="number"    id='a'/>
+            <button onClick={onUpdate}>update</button>
         </div>
     )
 };
