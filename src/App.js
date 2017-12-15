@@ -8,7 +8,7 @@ const Counter = ({value, onInc, onDec, onUpdate}) => {
             <h1>{value}</h1>
             <button onClick={onInc}>+</button>
             <button onClick={onDec}>-</button>
-            <input type="number"    id='a'/>
+            <input id='a' type="number"/>
             <button onClick={onUpdate}>update</button>
         </div>
     )

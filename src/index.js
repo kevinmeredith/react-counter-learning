@@ -12,7 +12,11 @@ function counter(state = 0, action) {
             return state - 1;
         case 'UPDATE':
             console.log(action);
-            return action.value;
+            const updated = Number.parseInt(action.value);
+            if(Number.isNaN(updated))
+                return state;
+            else
+                return updated;
         default:
             return state;
     }
