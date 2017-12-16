@@ -14,4 +14,18 @@ const Counter = ({value, onInc, onDec, onUpdate}) => {
     )
 };
 
-export default Counter;
+const TodoApp = ({todos, inputText, onInputChange, onAdd}) => {
+    return (
+        <div>
+            <ul>
+                {todos.map( t => <li>{t.text}</li> )}
+                <li>
+                    <input type="text" text={inputText} onChange={onInputChange}/>
+                    <button onClick={onAdd}>add</button>
+                </li>
+            </ul>
+        </div>
+    )
+};
+
+export default TodoApp;

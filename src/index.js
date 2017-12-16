@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Counter from './App';
+import TodoApp from './App';
 import { createStore } from 'redux';
 
 function counter(state = 0, action) {
@@ -22,19 +22,59 @@ function counter(state = 0, action) {
     }
 }
 
-const store = createStore(counter);
+// {
+//     todos: [{text: ""}],
+//     input: ""
+// }
 
-const render = () => {
+function todo(state = {todos:[], inputText: ""}, action) {
+    switch(action.type) {
+        case 'ADD':
+            return {
+              todos: <state className="todos"></state>.concat({text: action.text}),
+              inputText: ''
+            };
+        case 'UPDATE_INPUT_TEXT':
+            console.log('here:', action.newInputText);
+            return {
+                todos: state.todos,
+                inputText: action.newInputText
+            };
+        default:
+            return state;
+    }
+}
+
+const store = createStore(todo);
+
+// const render = () => {
+//     const st = store.getState();
+//     ReactDOM.render(
+//         <Counter value={st}
+//                  onInc={() => store.dispatch({type: 'INCREMENT'})}
+//                  onDec={() => store.dispatch({type: 'DECREMENT'})}
+//                  onUpdate={() => store.dispatch({type: 'UPDATE', value: document.getElementById('a').value})} // TODO - fix this hack
+//         />,
+//         document.getElementById('root')
+//     )
+// };
+
+const renderTodo = () => {
     const st = store.getState();
     ReactDOM.render(
-        <Counter value={st}
-                 onInc={() => store.dispatch({type: 'INCREMENT'})}
-                 onDec={() => store.dispatch({type: 'DECREMENT'})}
-                 onUpdate={() => store.dispatch({type: 'UPDATE', value: document.getElementById('a').value})}
+        <TodoApp todos={st.todos}
+                 inputText={st.inputText}
+                 onInputChange={event =>
+                     store.dispatch({type: 'UPDATE_INPUT_TEXT', newInputText: event.target.value})
+                 }
+                 onAdd={() => console.log('clicked add')}
+
         />,
         document.getElementById('root')
     )
 };
 
-store.subscribe(render);
-render();
+// items, inputText, onInputChange, onAdd
+
+store.subscribe(renderTodo);
+renderTodo();
