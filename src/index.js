@@ -4,38 +4,19 @@ import './index.css';
 import TodoApp from './App';
 import { createStore } from 'redux';
 
-function counter(state = 0, action) {
-    switch (action.type) {
-        case 'INCREMENT':
-            return state + 1;
-        case 'DECREMENT':
-            return state - 1;
-        case 'UPDATE':
-            console.log(action);
-            const updated = Number.parseInt(action.value);
-            if(Number.isNaN(updated))
-                return state;
-            else
-                return updated;
-        default:
-            return state;
-    }
-}
+const ADD = 'ADD';
+const UPDATE_INPUT_TEXT = 'UPDATE_INPUT_TEXT';
 
-// {
-//     todos: [{text: ""}],
-//     input: ""
-// }
-
-function todo(state = {todos:[], inputText: ""}, action) {
+function todo(state = {todos: [], inputText: ""}, action) {
     switch(action.type) {
-        case 'ADD':
+        case ADD:
             return {
-              todos: <state className="todos"></state>.concat({text: action.text}),
+              todos: state.todos.concat( {
+                text: state.inputText
+              }),
               inputText: ''
             };
-        case 'UPDATE_INPUT_TEXT':
-            console.log('here:', action.newInputText);
+        case UPDATE_INPUT_TEXT:
             return {
                 todos: state.todos,
                 inputText: action.newInputText
@@ -47,34 +28,20 @@ function todo(state = {todos:[], inputText: ""}, action) {
 
 const store = createStore(todo);
 
-// const render = () => {
-//     const st = store.getState();
-//     ReactDOM.render(
-//         <Counter value={st}
-//                  onInc={() => store.dispatch({type: 'INCREMENT'})}
-//                  onDec={() => store.dispatch({type: 'DECREMENT'})}
-//                  onUpdate={() => store.dispatch({type: 'UPDATE', value: document.getElementById('a').value})} // TODO - fix this hack
-//         />,
-//         document.getElementById('root')
-//     )
-// };
-
 const renderTodo = () => {
     const st = store.getState();
     ReactDOM.render(
         <TodoApp todos={st.todos}
                  inputText={st.inputText}
                  onInputChange={event =>
-                     store.dispatch({type: 'UPDATE_INPUT_TEXT', newInputText: event.target.value})
+                     store.dispatch({type: UPDATE_INPUT_TEXT, newInputText: event.target.value})
                  }
-                 onAdd={() => console.log('clicked add')}
+                 onAdd={() => store.dispatch({type: ADD})}
 
         />,
         document.getElementById('root')
     )
 };
-
-// items, inputText, onInputChange, onAdd
 
 store.subscribe(renderTodo);
 renderTodo();
