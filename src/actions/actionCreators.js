@@ -1,4 +1,4 @@
-import {ADD_TODO, DELETE_TODO} from "./action";
+import {ADD_TODO, DELETE_TODO} from "./action.js";
 
 export const addTodo = t => ({
     type: ADD_TODO,

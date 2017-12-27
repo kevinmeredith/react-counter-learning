@@ -1,7 +1,8 @@
-import {addTodo, deleteTodo} from "./actions/actionCreators.js";
+import {addTodo, deleteTodo} from "../actions/actionCreators.js";
 import React from 'react';
+import { connect } from 'react-redux';
 
-class Todos extends React.Component {
+export class Todos extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -42,8 +43,8 @@ class Todos extends React.Component {
     }
 }
 
-const mapStateToProps = ({todos}) => ({todos});
-const mapDispatchToProps = dispatch => ({
+export const mapStateToProps = ({todos}) => ({todos});
+export const mapDispatchToProps = dispatch => ({
     onAdd(text) {
         dispatch(addTodo(text));
     },
