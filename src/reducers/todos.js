@@ -1,6 +1,6 @@
 import {ADD_TODO, DELETE_TODO} from "../actions/action.js";
 
-export function todos(state = [], action) {
+export function todos(state = { todos: [] }, action) {
     switch(action.type) {
         case ADD_TODO:
             return {
