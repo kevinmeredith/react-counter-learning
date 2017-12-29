@@ -16,6 +16,12 @@ export class Todos extends React.Component {
         });
     }
 
+    resetInput() {
+        this.setState({
+            inputText: ''
+        });
+    }
+
     render() {
         const { todos, onAdd, onDelete } = this.props;
 
@@ -35,7 +41,10 @@ export class Todos extends React.Component {
                         <input type="text"
                                value={this.state.inputText}
                                onChange={e => this.handleChange(e)}/>
-                        <button onClick={() => onAdd(this.state.inputText)}>add</button>
+                        <button onClick={() => {
+                            onAdd(this.state.inputText);
+                            this.resetInput();
+                        }}>add</button>
                     </li>
                 </ul>
             </div>

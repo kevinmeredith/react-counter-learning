@@ -1,5 +1,5 @@
 import { Provider } from 'react-redux';
-import { Todos } from './components/Todos.js';
+import Todos from './components/Todos.js';
 import { todos } from './reducers/todos.js';
 import { createStore } from 'redux';
 import ReactDOM from 'react-dom';
